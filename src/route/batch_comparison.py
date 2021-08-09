@@ -13,8 +13,7 @@ def batch_individual_averages(batch_id):
         "Verbal Score": [],
         "Email": [],
     }
-    # get batch average scores by category
-    category_service.select_by_batch_averages(batch_id)
     # get associate scores by week and category
+    category_scores = category_service.select_by_batch_averages(batch_id)
 
     pass

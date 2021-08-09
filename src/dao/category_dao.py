@@ -62,7 +62,7 @@ def select_by_batch(batch_id, cursor):
 @cursor_handler
 def select_by_batch_averages(batch_id, cursor):
     cursor.execute(
-        """SELECT batch_id, email, category, AVG(score), week, weight FROM report_on_category
+        """SELECT batch_id, email, category, AVG(score), week, SUM(weight) FROM report_on_category
         WHERE batch_id LIKE %s
         GROUP BY email""",
         (batch_id,),

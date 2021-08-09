@@ -30,8 +30,20 @@ def select_by_batch(batch_id):
 
 
 def select_by_batch_averages(batch_id):
-    result = dao.select_by_batch_averages(batch_id)
-    return list(map(lambda x: Category(-1, *x), filter(None, result)))
+    result = filter(None, dao.select_by_batch_averages(batch_id))
+    aggregate = []
+    aggregate.append(
+        Category(
+            -1,
+            batch_id,
+            "",
+            "",
+            sum([x[3] for x in result]) / sum([x[5] for x in result]),
+            -1,
+            100,
+        )
+    )
+    return list(map(lambda x: Category(-1, *x), result))
 
 
 def select_by_batch_category(batch_id, category_type):
