@@ -64,6 +64,7 @@ def select_by_batch_averages(batch_id, cursor):
     cursor.execute(
         """SELECT batch_id, email, category, AVG(score), week, SUM(weight) FROM report_on_category
         WHERE batch_id LIKE %s
+        SORT BY category
         GROUP BY email""",
         (batch_id,),
     )
@@ -86,5 +87,13 @@ def select_by_batch_max_grade(batch_id, max_grade, cursor):
         """SELECT * FROM report_on_category
         WHERE batch_id LIKE %s AND score < %s""",
         (batch_id, max_grade),
+    )
+    return cursor.fetchall()
+
+
+@cursor_handler
+def select_all_categories(cursor):
+    cursor.execute(
+        """SELECT DISTINCT category FROM report_on_category"""
     )
     return cursor.fetchall()

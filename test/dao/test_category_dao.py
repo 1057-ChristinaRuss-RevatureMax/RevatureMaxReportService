@@ -1,5 +1,6 @@
-from src.model.assessment import Assessment
-from src.dao import assessment_dao as dao
+from model.category import Category
+from src.model.category import Category
+from src.dao import category_dao as dao
 from src.config.db_config import get_local_connection
 from test.data import test_assessment, test_batch, test_associate
 
@@ -65,9 +66,9 @@ class TestCategoryDAO(TestCase):
     def test_create_existing(self):
         # def test_create_existing(grade_id, batch_id, email, assessment_type, score, week, grade_weight, cursor):
         examples = [
-            Assessment(50, "EX-B01", "ex0001@example.com", "Score", 60, 1, 100),
-            Assessment(51, "EX-B01", "ex0003@example.com", "Score", 60, 1, 100),
-            Assessment(52, "EX-B01", "ex0005@example.com", "Score", 60, 1, 100),
+            Category(50, "EX-B01", "ex0001@example.com", "Score", 60, 1, 100),
+            Category(51, "EX-B01", "ex0003@example.com", "Score", 60, 1, 100),
+            Category(52, "EX-B01", "ex0005@example.com", "Score", 60, 1, 100),
         ]
         for ex in examples:
             dao.create_existing(*ex.to_tuple())
@@ -75,9 +76,9 @@ class TestCategoryDAO(TestCase):
     def test_create_new(self):
         # def test_create_new(batch_id, email, assessment_type, score, week, grade_weight, cursor):
         examples = [
-            Assessment(50, "EX-B01", "ex0001@example.com", "Score", 60, 1, 100),
-            Assessment(51, "EX-B01", "ex0003@example.com", "Score", 60, 1, 100),
-            Assessment(52, "EX-B01", "ex0005@example.com", "Score", 60, 1, 100),
+            Category(50, "EX-B01", "ex0001@example.com", "Score", 60, 1, 100),
+            Category(51, "EX-B01", "ex0003@example.com", "Score", 60, 1, 100),
+            Category(52, "EX-B01", "ex0005@example.com", "Score", 60, 1, 100),
         ]
         for ex in examples:
             dao.create_existing(*ex.to_tuple())
