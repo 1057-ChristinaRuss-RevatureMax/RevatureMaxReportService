@@ -2,7 +2,6 @@ from unittest import TestCase, mock
 
 from src.model.category import Category
 from src.service import category_service as service
-from test.data import test_category
 
 
 class TestCategoryService(TestCase):
