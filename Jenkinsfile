@@ -14,7 +14,11 @@ pipeline {
 		}
 		stage('deploy') {
 			steps {	
+<<<<<<< HEAD
 				sh './bin/python3 src/app.py &'
+=======
+				sh './bin/python3 src/main.py'
+>>>>>>> staging
 			}
 		}
 	}
