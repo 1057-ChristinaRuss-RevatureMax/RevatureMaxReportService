@@ -20,7 +20,7 @@ def create_new(batch_id, email, category, score, week, grade_weight, cursor):
 
 
 @cursor_handler
-def select_by_email_assessment_week(email, category, week, cursor):
+def select_by_email_category_week(email, category, week, cursor):
     cursor.execute(
         """SELECT * FROM report_on_category
         WHERE email LIKE %s AND category LIKE %s AND week = %s""",
@@ -30,7 +30,7 @@ def select_by_email_assessment_week(email, category, week, cursor):
 
 
 @cursor_handler
-def select_by_email_assessment(email, category, cursor):
+def select_by_email_category(email, category, cursor):
     cursor.execute(
         """SELECT * FROM report_on_category
         WHERE email LIKE %s AND category LIKE %s""",
@@ -62,10 +62,9 @@ def select_by_batch(batch_id, cursor):
 @cursor_handler
 def select_by_batch_averages(batch_id, cursor):
     cursor.execute(
-        """SELECT batch_id, email, category, AVG(score), week, SUM(weight) FROM report_on_category
+        """SELECT email, category, AVG(score), SUM(grade_weight) FROM report_on_category
         WHERE batch_id LIKE %s
-        SORT BY category
-        GROUP BY email""",
+        GROUP BY email, category""",
         (batch_id,),
     )
     return cursor.fetchall()
@@ -95,5 +94,15 @@ def select_by_batch_max_grade(batch_id, max_grade, cursor):
 def select_all_categories(cursor):
     cursor.execute(
         """SELECT DISTINCT category FROM report_on_category"""
+    )
+    return cursor.fetchall()
+
+
+@cursor_handler
+def select_by_batch_category(batch_id, category_type, cursor):
+    cursor.execute(
+        """SELECT * FROM report_on_category
+        WHERE batch_id LIKE %s AND category LIKE %s""",
+        (batch_id, category_type)
     )
     return cursor.fetchall()
