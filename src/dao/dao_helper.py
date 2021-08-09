@@ -1,15 +1,17 @@
-from src.config.db_config import get_local_connection as get_connection
+from src.config.db_config import get_local_connection
 from src.config.loggingConfig import controller_log as logger
 
 
 def cursor_handler(decorated):
-    """Injects a database cursor into the function parameters"""
+    """Injects a database cursor into the function parameters
+    note that the original function is still callable
+    without supplying the `cursor`"""
     def f(*args, **kwargs):
         logger.name = decorated.__module__
         conn = None
         result = None
         try:
-            conn = get_connection()
+            conn = get_local_connection()
             if not conn:
                 logger.exception(f"{decorated.__name__} :: connection failed to initialize.")
                 return None
