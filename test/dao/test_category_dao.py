@@ -1,53 +1,66 @@
 from src.model.assessment import Assessment
 from src.dao import assessment_dao as dao
 from src.config.db_config import get_local_connection
-from test.data.test_assessment_data import assessments, batches, associates
+from test.data import test_assessment, test_batch, test_associate
 
 from unittest import TestCase
 
 
-class TestAssessmentGradesDAO(TestCase):
+def remove_all(cursor):
+    for associate in test_associate.associates:
+        cursor.execute(
+            """DELETE FROM associate
+        WHERE salesforceId = %s""",
+            associate.salesforceId,
+        )
+    for batch in test_batch.batches:
+        cursor.execute(
+            """DELETE FROM report_batch
+        WHERE rb_id = %s""",
+            batch.rb_id,
+        )
+    for assess in test_assessment.assessments:
+        cursor.execute(
+            """DELETE FROM report_on_assessment
+        WHERE grade_id = %s""",
+            assess.grade_id,
+        )
+
+
+def add_all(cursor):
+    for associate in test_associate.associates:
+        cursor.execute(
+            """INSERT INTO associate
+        VALUES (%s,%s,%s,%s,%s)""",
+            associate.to_tuple(),
+        )
+    for batch in test_batch.batches:
+        cursor.execute(
+            """INSERT INTO report_batch
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+            batch.to_tuple(),
+        )
+    for assess in test_assessment.assessments:
+        cursor.execute(
+            """INSERT INTO report_on_assessment
+        VALUES (%s,%s,%s,%s,%s,%s,%s)""",
+            assess.to_tuple(),
+        )
+
+
+class TestCategoryDAO(TestCase):
     def setUp(self):
         with get_local_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(
-                    """TRUNCATE report_batch,
-                    report_evaluation,
-                    report_qc_note,
-                    report_on_assessment,
-                    associate CASCADE"""
-                )
-                for associate in associates:
-                    cur.execute(
-                        """INSERT INTO associate
-                    VALUES (%s,%s,%s,%s,%s)""",
-                        associate.to_tuple(),
-                    )
-                for batch in batches:
-                    cur.execute(
-                        """INSERT INTO report_batch
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-                        batch.to_tuple(),
-                    )
-                for assess in assessments:
-                    cur.execute(
-                        """INSERT INTO report_on_assessment
-                    VALUES (%s,%s,%s,%s,%s,%s,%s)""",
-                        assess.to_tuple(),
-                    )
-                conn.commit()
+                remove_all(cur)
+                add_all(cur)
+            conn.commit()
 
     def tearDown(self):
         with get_local_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(
-                    """TRUNCATE report_batch,
-                    report_evaluation,
-                    report_qc_note,
-                    report_on_assessment,
-                    associate CASCADE"""
-                )
-                conn.commit()
+                remove_all(cur)
+            conn.commit()
 
     def test_create_existing(self):
         # def test_create_existing(grade_id, batch_id, email, assessment_type, score, week, grade_weight, cursor):

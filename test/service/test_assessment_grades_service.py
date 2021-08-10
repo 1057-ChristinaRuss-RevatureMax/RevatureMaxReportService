@@ -1,4 +1,3 @@
-from test.data.test_assessment_data import assessments, batches, associates
 from unittest import TestCase, mock
 
 
