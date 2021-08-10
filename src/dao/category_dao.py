@@ -109,12 +109,24 @@ def select_by_batch_category(batch_id, category_type, cursor):
 
 
 @cursor_handler
-def select_batch_average_weekly(batch_id, cursor):
+def select_batch_averages_weekly(batch_id, cursor):
     cursor.execute(
-        """SELECT SUM(score * grade_weight) / SUM(grade_weight), category, week FROM report_on_category
+        """SELECT SUM(score * grade_weight) / SUM(grade_weight), category, week
+        FROM report_on_category
         WHERE batch_id LIKE %s
-        GROUP BY week, category
-        ORDER BY week ASC""",
+        GROUP BY week, category""",
         (batch_id,),
+    )
+    return cursor.fetchall()
+
+
+@cursor_handler
+def select_categorical_averages_by_email_weekly(email, cursor):
+    cursor.execute(
+        """SELECT SUM(score * grade_weight) / SUM(grade_weight), category, week
+        FROM report_on_category
+        WHERE email LIKE %s AND grade_weight > 0
+        GROUP BY week, category""",
+        (email,),
     )
     return cursor.fetchall()
