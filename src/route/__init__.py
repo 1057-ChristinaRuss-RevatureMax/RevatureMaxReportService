@@ -1,1 +1,1 @@
-__all__ = ["caliber", "self_comparison"]
+__all__ = ["caliber", "self_comparison", "batch_comparison"]
