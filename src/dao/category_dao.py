@@ -2,7 +2,9 @@ from src.dao.dao_helper import cursor_handler
 
 
 @cursor_handler
-def create_existing(grade_id, batch_id, email, category, score, week, grade_weight, cursor):
+def create_existing(
+    grade_id, batch_id, email, category, score, week, grade_weight, cursor
+):
     cursor.execute(
         """INSERT INTO report_on_category
         VALUES (%s, %s, %s, %s, %s, %s, %s)""",
@@ -92,9 +94,7 @@ def select_by_batch_max_grade(batch_id, max_grade, cursor):
 
 @cursor_handler
 def select_all_categories(cursor):
-    cursor.execute(
-        """SELECT DISTINCT category FROM report_on_category"""
-    )
+    cursor.execute("""SELECT DISTINCT category FROM report_on_category""")
     return cursor.fetchall()
 
 
@@ -103,6 +103,18 @@ def select_by_batch_category(batch_id, category_type, cursor):
     cursor.execute(
         """SELECT * FROM report_on_category
         WHERE batch_id LIKE %s AND category LIKE %s""",
-        (batch_id, category_type)
+        (batch_id, category_type),
+    )
+    return cursor.fetchall()
+
+
+@cursor_handler
+def select_batch_average_weekly(batch_id, cursor):
+    cursor.execute(
+        """SELECT SUM(score * grade_weight) / SUM(grade_weight), category, week FROM report_on_category
+        WHERE batch_id LIKE %s
+        GROUP BY week, category
+        ORDER BY week ASC""",
+        (batch_id,),
     )
     return cursor.fetchall()
