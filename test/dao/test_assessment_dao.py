@@ -28,24 +28,12 @@ def add_all(cursor):
 
 
 def remove_all(cursor):
-    for associate in test_associate.associates:
-        cursor.execute(
-            """DELETE FROM associate
-        WHERE salesforceId = %s""",
-            associate.salesforceId,
-        )
-    for batch in test_batch.batches:
-        cursor.execute(
-            """DELETE FROM report_batch
-        WHERE rb_id = %s""",
-            batch.rb_id,
-        )
-    for assess in test_assessment.assessments:
-        cursor.execute(
-            """DELETE FROM report_on_assessment
-        WHERE grade_id = %s""",
-            assess.grade_id,
-        )
+    try:
+        cursor.execute("""DELETE FROM report_on_assessment WHERE batch_id LIKE 'EX%';""")
+        cursor.execute("""DELETE FROM report_batch WHERE batch_id LIKE 'EX-B%';""")
+        cursor.execute("""DELETE FROM associate WHERE salesforceid LIKE 'EX%';""")
+    except Exception as e:
+        print(e)
 
 
 class TestAssessmentGradesDAO(TestCase):

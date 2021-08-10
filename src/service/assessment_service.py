@@ -6,7 +6,7 @@ def create_assessment(assessment: Assessment):
     if assessment.grade_id == -1:  # assessment has no valid grade id
         dao.create_new(*assessment.to_tuple()[1:])
     else:  # assessment refers to something that existed previously
-        dao.create_existing(*assessment)
+        dao.create_existing(*assessment.to_tuple())
 
 
 def select_by_email_assessment_week(associate_email, assessment_type, week):
