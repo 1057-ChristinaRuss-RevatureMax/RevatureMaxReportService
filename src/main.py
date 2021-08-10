@@ -1,7 +1,7 @@
 # routes need to be touched by import once to proc the app import/setup
-from route import *
-from config.flask_config import app
-
+# from src.config.db_config import execute_sql
+from src.route import *
+from src.config.flask_config import app
 from dotenv import dotenv_values
 
 
