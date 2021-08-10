@@ -1,5 +1,5 @@
-from src.config.db_config import get_local_connection
-from src.config.loggingConfig import controller_log as logger
+from config.db_config import get_connection
+from config.loggingConfig import controller_log as logger
 
 
 def cursor_handler(decorated):
@@ -11,7 +11,7 @@ def cursor_handler(decorated):
         conn = None
         result = None
         try:
-            conn = get_local_connection()
+            conn = get_connection()
             if not conn:
                 logger.exception(f"{decorated.__name__} :: connection failed to initialize.")
                 return None

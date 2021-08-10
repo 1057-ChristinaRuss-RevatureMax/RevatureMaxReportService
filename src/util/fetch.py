@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 from json import loads
-from src.config.loggingConfig import controller_log as logger
+from config.loggingConfig import controller_log as logger
 
 
 def fetch_json(url):
