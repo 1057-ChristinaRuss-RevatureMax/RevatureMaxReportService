@@ -1,10 +1,13 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Associate:
-    def __init__(self, email, salesforceId, firstname, lastname, batch_id):
-        self.email = email
-        self.salesforceId = salesforceId
-        self.firstname = firstname
-        self.lastname = lastname
-        self.batch_id = batch_id
+    email: str
+    salesforceId: str
+    firstname: str
+    lastname: str
+    batch_id: str
 
     def __repr__(self):
         return "Associate(%s, %s, %s, %s, %s)" % (

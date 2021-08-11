@@ -1,12 +1,15 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class SpiderWeek:
-    def __init__(self, grade_id, trainee_id, associate_id, type, score, week, weight):
-        self.grade_id = grade_id
-        self.trainee_id = trainee_id
-        self.associate_id = associate_id
-        self.type = type
-        self.score = score
-        self.week = week
-        self.weight = weight
+    grade_id: str
+    trainee_id: str
+    associate_id: str
+    type: str
+    score: str
+    week: str
+    weight: str
 
     def __repr__(self):
         return "SpiderWeek(%s, %s, %s, %s, %s, %s, %s)" % (

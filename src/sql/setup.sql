@@ -1,7 +1,4 @@
-DROP TABLE IF EXISTS report_batch, report_qc_note, report_employee, report_evaluation, report_on_assessment CASCADE;
-DROP TABLE IF EXISTS associate_portfolio, employee_portfolio, associate, employee CASCADE;
-
-create table associate(
+create table IF NOT EXISTS associate(
   email varchar(75) UNIQUE,
   salesforceId varchar(10) primary key not null, 
   firstname varchar(20) not null,
@@ -9,7 +6,7 @@ create table associate(
   batch_id VARCHAR(10) not null
 );
 
-create table associate_portfolio(
+create table IF NOT EXISTS associate_portfolio(
   bio text,
   favorite_technologies text,
   preference varchar(15),
@@ -18,7 +15,7 @@ create table associate_portfolio(
   references associate(salesforceId)
 );
 
-create table employee (
+create table IF NOT EXISTS employee (
   salesforceId varchar(10) primary key not null, 
   firstname varchar(20) not null,
   lastname varchar(20) not null,
@@ -26,7 +23,7 @@ create table employee (
   pswrd varchar(40)
 );
 
-create table employee_portfolio(
+create table IF NOT EXISTS employee_portfolio(
   bio text,
   technology text,
   trainer_location varchar(25),
@@ -35,7 +32,7 @@ create table employee_portfolio(
   references associate(salesforceId)
 );
 
-CREATE TABLE report_batch (
+CREATE TABLE IF NOT EXISTS report_batch (
   rb_id BIGSERIAL PRIMARY KEY,
   batch_id VARCHAR UNIQUE,       -- batchId
   rb_name VARCHAR,               -- name
@@ -50,7 +47,7 @@ CREATE TABLE report_batch (
   rb_end_date VARCHAR            -- endDate
 );
 
-CREATE TABLE report_evaluation (
+CREATE TABLE IF NOT EXISTS report_evaluation (
   grade_id BIGSERIAL PRIMARY KEY, -- gradeId
   date_received DATE,             -- dateReceived
   score DECIMAL,                  -- score
@@ -59,7 +56,7 @@ CREATE TABLE report_evaluation (
 );
 
 --https://caliber2-mock.revaturelabs.com:443/mock/qa/notes/individual/TR-1190
-CREATE TABLE report_qc_note (
+CREATE TABLE IF NOT EXISTS report_qc_note (
   note_id BIGSERIAL PRIMARY KEY,  -- "noteId": 3942,
   content VARCHAR,                -- "content": "This is a Qc note on week 6",
   week INTEGER,                   -- "week": 6,
@@ -73,7 +70,7 @@ CREATE TABLE report_qc_note (
 );
 
 --https://caliber2-mock.revaturelabs.com:443/mock/qa/notes/batch/TR-1190
-CREATE TABLE report_qc_batch_note (
+CREATE TABLE IF NOT EXISTS report_qc_batch_note (
   note_id BIGSERIAL PRIMARY KEY,  -- "noteId": 3942,
   content VARCHAR,                -- "content": "This is a Qc batch note on week 9",
   week INTEGER,                   -- "week": 6,
@@ -87,7 +84,7 @@ CREATE TABLE report_qc_batch_note (
 );
 
 -- https://caliber2-mock.revaturelabs.com/mock/evaluation/grades/reports/TR-1190/spider/mock8.associatef4c8d0c5-ecaf-4127-a459-7bf3617118a6@mock.com
-CREATE TABLE report_on_assessment (
+CREATE TABLE IF NOT EXISTS report_on_assessment (
   grade_id        BIGSERIAL,    -- 
   batch_id        VARCHAR
     REFERENCES report_batch(batch_id),
@@ -107,7 +104,7 @@ CREATE TABLE report_on_assessment (
 -- This table uses categories like Verbal, Exam, etc
 --    while the assessment table references specific
 --    Tech Stacks like NoSQL, TypeScript, etc.
-CREATE TABLE report_on_category (
+CREATE TABLE IF NOT EXISTS report_on_category (
   grade_id        BIGSERIAL,      -- 
   batch_id        VARCHAR
     REFERENCES report_batch(batch_id),

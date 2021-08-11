@@ -1,21 +1,15 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Assessment:
-    def __init__(
-        self,
-        grade_id,
-        batch_id,
-        associate_id,
-        assessment_type,
-        score,
-        week,
-        grade_weight,
-    ):
-        self.grade_id = grade_id
-        self.batch_id = batch_id
-        self.associate_id = associate_id
-        self.assessment_type = assessment_type
-        self.score = score
-        self.week = week
-        self.grade_weight = grade_weight
+    grade_id: str
+    batch_id: str
+    associate_id: str
+    assessment_type: str
+    score: int
+    week: str
+    grade_weight: int
 
     def __repr__(self):
         return "Assessment(%s, %s, %s, %s, %s, %s, %s)" % (

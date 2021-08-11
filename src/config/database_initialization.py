@@ -1,5 +1,6 @@
-from dao.dao_helper import cursor_handler
-from util.fetch import fetch_json
+from src.dao.dao_helper import cursor_handler
+from src.util.fetch import fetch_json
+from src.config.db_config import execute_sql
 
 URL_BASE = "https://caliber2-mock.revaturelabs.com:443/mock/"
 
@@ -35,3 +36,7 @@ def populate_table_entire_batch(batch_id):
 
     for x in qc_json_batch:
         initialize_batch_qc(x)
+
+
+def initialize_tables():
+    execute_sql("src/sql/setup.py")

@@ -1,10 +1,10 @@
-from dao.dao_helper import cursor_handler
-from util.fetch import fetch_json
-from service import assessment_service, category_service
-from dao import associate_dao
-from model.assessment import Assessment
-from model.associate import Associate
-from model.category import Category
+from src.dao.dao_helper import cursor_handler
+from src.util.fetch import fetch_json
+from src.service import assessment_service, category_service
+from src.dao import associate_dao
+from src.model.assessment import Assessment
+from src.model.associate import Associate
+from src.model.category import Category
 
 
 URL_BASE = "https://caliber2-mock.revaturelabs.com:443/mock/"

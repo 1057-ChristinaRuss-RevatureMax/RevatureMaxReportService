@@ -1,5 +1,5 @@
-from dao import category_dao, associate_dao
-from model.category import Category
+from src.dao import category_dao, associate_dao
+from src.model.category import Category
 
 
 def create_category(category: Category):

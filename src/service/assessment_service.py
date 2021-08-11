@@ -1,9 +1,8 @@
-from dao import assessment_dao
-from model.assessment import Assessment
+from src.dao import assessment_dao
+from src.model.assessment import Assessment
 
 
 def create_assessment(assessment: Assessment):
-    tpl = assessment.to_tuple()
     if assessment.grade_id == -1:  # assessment has no valid grade id
         assessment_dao.create_new(*assessment.to_tuple()[1:])
     else:  # assessment refers to something that existed previously

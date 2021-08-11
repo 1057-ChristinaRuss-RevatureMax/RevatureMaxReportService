@@ -1,8 +1,11 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class BatchGrade():
-    def __init__(self, name, average, batch_id):
-        self.name = name
-        self.average = average
-        self.batch_id = batch_id
+    name: str
+    average: int
+    batch_id: str
 
     def __repr__(self):
         return "BatchGrade(%s, %s, %s)" % (
