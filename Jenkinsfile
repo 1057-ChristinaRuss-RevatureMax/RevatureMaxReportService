@@ -12,8 +12,8 @@ pipeline {
 				sh './bin/pip3 install -r requirements.txt'
 			}
 		}
-		stage('deploy') {
-			steps {	
+		post {
+			always {	
 				sh './bin/python3 src/main.py'
 			}
 		}
