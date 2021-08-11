@@ -17,8 +17,11 @@ def add_all(cursor):
         cursor.execute(
             """INSERT INTO report_batch
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
-            batch.to_tuple(),
-        )
+            (
+                batch.rb_id, batch.batch_id, batch.rb_name, batch.rb_start_date, batch.rb_end_date,
+                batch.skill,
+                batch.rb_location, batch.rb_type, batch.good_grade, batch.passing_grade,
+                batch.current_week))
     for assess in test_assessment.assessments:
         cursor.execute(
             """INSERT INTO report_on_assessment

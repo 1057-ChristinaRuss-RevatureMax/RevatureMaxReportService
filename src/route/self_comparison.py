@@ -1,6 +1,6 @@
 # from flask import make_response, request
-from config.flask_config import app
-from service import category_service, assessment_service
+from src.config.flask_config import app
+from src.service import category_service, assessment_service
 
 URL_BASE = "https://caliber2-mock.revaturelabs.com:443/mock/"
 

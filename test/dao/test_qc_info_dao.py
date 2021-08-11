@@ -3,6 +3,7 @@ from src.dao import qc_dao as dao
 import unittest
 
 
+
 class qc_info_dao_test(unittest.TestCase):
 
     def setUp(self):
@@ -32,8 +33,7 @@ class qc_info_dao_test(unittest.TestCase):
                 )
 
     def test_select_qc_info_by_associate_id(self):
-        result = dao.select_qc_info_by_associate_id('SF-420')
-        self.assertEquals(result[0][2], 'Superstar')
+        self.assertEqual(dao.select_qc_info_by_associate_id('SF-420')[0][2], 'Superstar')
 
     def test_select_qc_batch_average_by_week(self):
-        self.assertEquals(dao.select_qc_batch_average_by_week('TR-404', 1)[0], 'Superstar')
+        self.assertEqual(dao.select_qc_batch_average_by_week('TR-404', 1)[0], 'Superstar')
