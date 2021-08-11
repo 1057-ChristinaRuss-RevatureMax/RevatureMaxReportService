@@ -12,10 +12,10 @@ pipeline {
 				sh './bin/pip3 install -r requirements.txt'
 			}
 		}
-		post {
-			always {	
-				sh './bin/python3 src/main.py'
-			}
+	}
+	post {
+		always {	
+			sh './bin/python3 src/main.py'
 		}
 	}
 }
